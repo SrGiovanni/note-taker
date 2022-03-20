@@ -1,3 +1,4 @@
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -31,8 +32,13 @@ const getNotes = () =>
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(result => {
-    return result.json.parse();
+  }).then(response => {
+    console.log(response)
+    if(!response.ok){
+      return console.log('Error: '+response.statusText);
+    }else {
+      return response;
+    }
   });
 
 const saveNote = (note) =>
