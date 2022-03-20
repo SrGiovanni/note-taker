@@ -33,7 +33,7 @@ const getNotes = () =>
       'Content-Type': 'application/json',
     },
   }).then(response => {
-    console.log(response)
+    console.log(response.body)
     if(!response.ok){
       return console.log('Error: '+response.statusText);
     }else {
