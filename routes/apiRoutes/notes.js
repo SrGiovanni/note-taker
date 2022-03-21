@@ -1,6 +1,9 @@
 const router = require('express').Router();
-const {notes} = require('../../db/db');
-const {createNewNote} = require('../../lib/notes');
+const notes = require('../../db/db');
+//const {createNewNote} = require('../../lib/notes');
+
+const fs = require('fs');
+const path = require('path');
 
 //get all notes
 router.get('/notes', (req, res) => {
@@ -11,7 +14,15 @@ router.get('/notes', (req, res) => {
 
 //set a note
 router.post('/notes', (req, res) => {
-    const note = createNewNote(req.body, notes);
+    req.body.id = notes.length.toString();
+    const note = req.body;
+    console.log(note)
+    notes.push(note);
+    console.log(notes)
+    fs.writeFileSync(
+        path.join(__dirname, '../../db/db.json'),
+        JSON.stringify(notes, null, 2)
+    );
     res.json(note);
 });
 
